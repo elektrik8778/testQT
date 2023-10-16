@@ -11,14 +11,16 @@ class App(customtkinter.CTk):
         super().__init__()
 
         self.title("Аптеки")
-        self.geometry("200x500")
+        self.geometry("200x100")
+        self.geometry('+1913+908')
+        self.attributes("-topmost", True)
 
         self.frame = customtkinter.CTkFrame(self)
         self.frame.pack(pady=5, padx=10, fill="both", expand=True)
 
         self.label1 = customtkinter.CTkLabel(self.frame,
                                              width=120,
-                                             text="аптека_1",
+                                             text="аптека_13",
                                              font=("Roboto", 14),
                                              bg_color="green",
                                              corner_radius=18,
@@ -28,7 +30,7 @@ class App(customtkinter.CTk):
                          )
         self.label2 = customtkinter.CTkLabel(self.frame,
                                              width=120,
-                                             text="аптека_2",
+                                             text="аптека_15",
                                              font=("Roboto", 14),
                                              bg_color="red",
                                              corner_radius=18,
@@ -40,10 +42,14 @@ class App(customtkinter.CTk):
         self.label1.after(1000, self.setColor())
 
     def setColor(self):
-        if ping('192.168.0.104', timeout=1, count=1).success():
+        if ping('192.168.2.13', timeout=1, count=1).success():
             self.label1.configure(bg_color="green")
         else:
             self.label1.configure(bg_color="red")
+        if ping('192.168.2.15', timeout=1, count=1).success():
+            self.label2.configure(bg_color="green")
+        else:
+            self.label2.configure(bg_color="red")
         self.after(5000, self.setColor)
 
 

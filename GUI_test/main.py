@@ -1,5 +1,6 @@
 import customtkinter
 from pythonping import ping
+import threading
 
 
 customtkinter.set_appearance_mode("dark")
@@ -39,7 +40,10 @@ class App(customtkinter.CTk):
                          padx=5,
                          )
 
-        self.label1.after(1000, self.setColor())
+        self.label1.after(100, self.setColor())
+    def check_apt(self):
+        t = threading.Thread(target=self.setColor)
+        t.start()
 
     def setColor(self):
         if ping('192.168.2.13', timeout=1, count=1).success():
@@ -50,7 +54,8 @@ class App(customtkinter.CTk):
             self.label2.configure(bg_color="green")
         else:
             self.label2.configure(bg_color="red")
-        self.after(5000, self.setColor)
+        self.after(10000, self.setColor)
+
 
 
 if __name__ == "__main__":
